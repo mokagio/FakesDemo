@@ -26,10 +26,36 @@ class APIClient {
   }
 
   func login(username: String, password: String, callback: (Result<APIToken, APIError>) -> ()) {
-    fatalError()
+    // TODO: Config proper request
+    let request = NSURLRequest(URL: baseURL.URLByAppendingPathComponent("login"))
+
+    let task = session.dataTaskWithRequest(request) { data, response, error in
+      if let error = error {
+        callback(Result(error: .WrappedError(error)))
+      } else {
+        // TODO: Inspect content etc...
+        let token = "ABCD-1234"
+
+        callback(Result(value: token))
+      }
+    }
+
+    task.resume()
   }
 
   func getResource(id: String, callback: (Result<Resource, APIError>) -> ()) {
-    fatalError()
+    // TODO: Config proper request
+    let request = NSURLRequest(URL: baseURL.URLByAppendingPathComponent("resource/\(id)"))
+
+    let task = session.dataTaskWithRequest(request) { data, response, error in
+      if let error = error {
+        callback(Result(error: .WrappedError(error)))
+      } else {
+        // TODO: Inspect content etc...
+        callback(Result(value: Resource(property: "")))
+      }
+    }
+
+    task.resume()
   }
 }
