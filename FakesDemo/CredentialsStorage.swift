@@ -8,5 +8,7 @@
 
 protocol CredentialsStorage {
 
-  var token: String? { get set }
+  var token: APIToken? { get }
+
+  func setToken(token: APIToken)
 }
